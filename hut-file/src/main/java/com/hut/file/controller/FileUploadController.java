@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by Jared on 2016/12/11.
@@ -88,12 +90,22 @@ public class FileUploadController {
 
         LocalDate now = LocalDate.now();
         int year = now.getYear();
+        int month = now.getMonthValue();
+        int day = now.getDayOfMonth();
 
-        // \\images\\2016\\03\\28\\yyyyMMddHHmmssSSSSXXXX.jpg
-        String picPath = File.separator+"images"+File.separator+new DateTime(nowDate).toString("yyyy")
-                + File.separator + new DateTime(nowDate).toString("MM") + File.separator
-                + new DateTime(nowDate).toString("dd")+ File.separator+new DateTime(nowDate).toString("yyyyMMddHHmmssSSSS")
-                + RandomUtils.nextInt(1000, 9999);
+        LocalTime nowtime = LocalTime.now();
+        int hour = nowtime.getHour();
+        int minute = nowtime.getMinute();
+        int second = nowtime.getSecond();
+
+        Random random = new Random();
+        String picPath =
+                  File.separator + "images"
+                + File.separator + year
+                + File.separator + month
+                + File.separator + day
+                + File.separator + hour + minute + second
+                + random.nextInt(9999);
 
         return picPath;
     }
