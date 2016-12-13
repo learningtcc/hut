@@ -3,8 +3,10 @@ hut in the forest 是一个类似QQ空间的项目
 1、项目结构
    hut-web  前台项目
    hut-manage  后台项目
-   hut-sso  单点登录系统
+   hut-sso  单点登录接口
    hut-common   公共的jar项目
+   hut-file    文件上传、下载接口
+   hut-message   邮件、短信服务接口
 
 2、数据库表结构位于 META-INF/init.sql
 
