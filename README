@@ -1,0 +1,21 @@
+hut in the forest 是一个类似QQ空间的项目
+
+1、项目结构
+   hut-web  前台项目
+   hut-manage  后台项目
+   hut-sso  单点登录系统
+   hut-common   公共的jar项目
+
+2、数据库表结构位于 META-INF/init.sql
+
+3、项目采用maven构建，并使用spring boot作为依赖导入
+
+4、hut-parent下所有module均采用Spring MVC启动
+   hut-web项目采用纯xml配置
+   hut-manage项目采用纯java配置
+   hut-sso项目采用半xml半java配置
+
+5、项目默认配置文件放置于hut-common项目的 META-INF/system-config.properties 项目的配置文件。
+   出于项目的个性化定制不同，可以自行在当前项目的META-INF中进行覆盖。
+
+   
