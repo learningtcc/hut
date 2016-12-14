@@ -1,8 +1,13 @@
 package com.hut.file.controller;
 
+import com.hut.file.pojos.PersistentFile;
+import com.hut.file.service.FileUploadService;
 import com.hut.file.utils.Area;
 import com.hut.file.utils.ImageUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.util.UrlPathHelper;
 
 import javax.servlet.ServletException;
@@ -16,12 +21,14 @@ import java.io.IOException;
  * Created by Jared on 2016/12/11.
  */
 
-@WebServlet("/filedown")
+@WebServlet("/download")
 public class ImgServlet extends HttpServlet {
 
+    @Autowired
 	private UrlPathHelper urlPathHelper;
 
-    private CloudFileSerivce cloudFileSerivce;
+    @Autowired
+    private FileUploadService fileUploadService;
 
     public ImgServlet() {
         this.urlPathHelper = new UrlPathHelper();
@@ -29,8 +36,8 @@ public class ImgServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-
-        cloudFileSerivce = (CloudFileSerivce) Springs.getRootApplicationContext().getBean("cloudFileServiceImpl");
+        WebApplicationContext webApplicationContext = RequestContextUtils.getWebApplicationContext();
+        fileUploadService = (CloudFileSerivce) Springs.getRootApplicationContext().getBean("cloudFileServiceImpl");
     }
 
     @Override
@@ -38,10 +45,10 @@ public class ImgServlet extends HttpServlet {
 
         String url = urlPathHelper.getLookupPathForRequest(req);
 
-            CloudFile cfile = this.cloudFileSerivce.getCloudFileByPath(url);
+            PersistentFile cfile = this.fileUploadService.getPersistentFileByPath(url);
 
             if(cfile!=null){
-                byte[] data = this.cloudFileSerivce.getData(cfile);
+                byte[] data = this.fileUploadService.getData(cfile);
  
                 resp.setContentType(cfile.getContentType());
 
@@ -101,7 +108,6 @@ public class ImgServlet extends HttpServlet {
 
         return null;
     }
-
 
     private byte[] scaleImage(String scale, byte[] data) {
 

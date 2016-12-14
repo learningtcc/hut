@@ -18,7 +18,7 @@ import java.util.Random;
  * Created by Jared on 2016/12/11.
  */
 @RestController
-@RequestMapping("/fileup")
+@RequestMapping("/upload")
 public class FileUploadController {
 
     @Autowired
@@ -60,7 +60,7 @@ public class FileUploadController {
 
 
     @GetMapping("count")
-    public Msg getCount(@RequestParam("userId")String userId){
+    public Msg getCount(@RequestParam("userId")int userId){
         try {
             Map map = new HashMap<String,Integer>();
             int sum = this.fileUploadService.getSumByUserId(userId);
@@ -73,7 +73,7 @@ public class FileUploadController {
     }
 
     @GetMapping("size")
-    public Msg getSize(@RequestParam("userId")String userId){
+    public Msg getSize(@RequestParam("userId")int userId){
         try {
             Map map = new HashMap<String,Integer>();
             int size = this.fileUploadService.getTotalSizeByUserId(userId);

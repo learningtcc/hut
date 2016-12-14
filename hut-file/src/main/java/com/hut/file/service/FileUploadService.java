@@ -1,6 +1,7 @@
 package com.hut.file.service;
 
 import com.hut.file.pojos.FileUploadBean;
+import com.hut.file.pojos.PersistentFile;
 
 /**
  * Created by Jared on 2016/12/11.
@@ -11,11 +12,11 @@ public interface FileUploadService {
 
     boolean upload(FileUploadBean form);
 
-    CloudFile getCloudFileByPath(String path);
+    PersistentFile getPersistentFileByPath(String path);
 
-    byte[] getData(CloudFile file);
+    byte[] getData(PersistentFile file);
 
-    int getSumByUserId(String userId);
+    int getSumByUserId(int userId);
 
-    int getTotalSizeByUserId(String userId);
+    int getTotalSizeByUserId(int userId);
 }
