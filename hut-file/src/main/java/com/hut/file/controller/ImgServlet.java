@@ -21,10 +21,16 @@ import java.io.IOException;
  * Created by Jared on 2016/12/11.
  */
 
-@WebServlet("/download")
+@WebServlet("/fileDownload")
 public class ImgServlet extends HttpServlet {
 
-    @Autowired
+
+    private static final String MODEL_SMALL = "_small";
+    private static final String MODEL_BIG = "_big";
+    private static final String MODEL_THUMBNAIL = "_thumbnail";
+    private static final String MODEL_TINY = "_tiny";
+    private static final String MODEL_ORIGINAL = "_original";
+
 	private UrlPathHelper urlPathHelper;
 
     @Autowired
@@ -32,12 +38,6 @@ public class ImgServlet extends HttpServlet {
 
     public ImgServlet() {
         this.urlPathHelper = new UrlPathHelper();
-    }
-
-    @Override
-    public void init() throws ServletException {
-        WebApplicationContext webApplicationContext = RequestContextUtils.getWebApplicationContext();
-        fileUploadService = (CloudFileSerivce) Springs.getRootApplicationContext().getBean("cloudFileServiceImpl");
     }
 
     @Override
@@ -74,12 +74,6 @@ public class ImgServlet extends HttpServlet {
          resp.setStatus(200);
     }
 
-    private static final String MODEL_SMALL = "_small";
-    private static final String MODEL_BIG = "_big";
-    private static final String MODEL_THUMBNAIL = "_thumbnail";
-    private static final String MODEL_TINY = "_tiny";
-    private static final String MODEL_ORIGINAL = "_original";
-
     private byte[] modelImage(String model, byte[] data) {
 
         if (MODEL_BIG.equals(model)) {
@@ -105,12 +99,10 @@ public class ImgServlet extends HttpServlet {
         else if (MODEL_ORIGINAL.equals(model)) {
             return data;
         }
-
         return null;
     }
 
     private byte[] scaleImage(String scale, byte[] data) {
-
         return ImageUtils.sizeNarrow(data,new Area(scale));
     }
 

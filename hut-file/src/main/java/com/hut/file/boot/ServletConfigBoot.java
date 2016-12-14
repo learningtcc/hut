@@ -24,12 +24,15 @@ public class ServletConfigBoot extends WebMvcConfigurerAdapter {
     * */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
- /*       registry.addInterceptor(new LocaleInterceptor());
-        registry.addInterceptor(new ThemeInterceptor()).addPathPatterns("*//**").excludePathPatterns("/admin*//**");
-        registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/secure*//*");*/
+        //registry.addInterceptor(new LocaleInterceptor());
+        //registry.addInterceptor(new ThemeInterceptor()).addPathPatterns("*//**").excludePathPatterns("/admin*//**");
+        //registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/secure*//*");
     }
 
-
+    /**
+     * 文件上传解析器
+     * @return
+     */
     @Bean
     public CommonsMultipartResolver multipartResolver()
     {

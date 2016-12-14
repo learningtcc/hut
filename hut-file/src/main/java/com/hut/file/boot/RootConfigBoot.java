@@ -12,7 +12,6 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.sql.DataSource;
 import java.io.File;
 
@@ -31,13 +30,13 @@ public class RootConfigBoot {
         PropertySourcesPlaceholderConfigurer config  = new PropertySourcesPlaceholderConfigurer();
 
         //添加一段生产环境的，配置文件代码，如果在指定位置找到配置文件则用外置配置文件，如果没有则用内置。
-        File product = new File("/usr/local/servers/system-cnf-common.properties");
+        File product = new File("/usr/local/servers/system-config.properties");
 
         if(product.exists()){
             config.setLocation(new FileSystemResource(product));
         }
         else{
-            String filePath = "META-INF/system-cnf.properties";
+            String filePath = "/system-config.properties";
             config.setLocation(new ClassPathResource(filePath,RootConfigBoot.class.getClassLoader()));
         }
 
@@ -62,10 +61,10 @@ public class RootConfigBoot {
     //定义 MyBatis 的 SessionFactory,需要配置 mybatis-config.xml配置文件的位置信息。
     @Bean
     public SqlSessionFactoryBean sqlSessionFactory(DataSource ds){
-        SqlSessionFactoryBean  factory = new SqlSessionFactoryBean();
 
+        SqlSessionFactoryBean  factory = new SqlSessionFactoryBean();
         factory.setDataSource(ds);
-        factory.setConfigLocation(new ClassPathResource("META-INF/mybatis-config.xml"));
+        factory.setConfigLocation(new ClassPathResource("/mybatis-config.xml"));
 
         return factory;
     }
@@ -73,12 +72,12 @@ public class RootConfigBoot {
     //用来配置，MyBatis 扫包范围，从而为我们创建Dao层的实现。
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
+
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
-
-        configurer.setBasePackage("com.wdcf.file.mapper");
-
+        configurer.setBasePackage("com.hut.file.dao");
         //方法名即为BeanName
         configurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
+        
         return configurer;
     }
 

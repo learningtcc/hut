@@ -10,13 +10,17 @@ public interface FileUploadService {
 
     boolean upload(FileUploadBean form, byte[] data);
 
-    boolean upload(FileUploadBean form);
+    int getSumByUserId(int userId);
 
+    int getTotalSizeByUserId(int userId);
+
+    /**
+     * 下载文件接口
+     * @param path
+     * @return
+     */
     PersistentFile getPersistentFileByPath(String path);
 
     byte[] getData(PersistentFile file);
 
-    int getSumByUserId(int userId);
-
-    int getTotalSizeByUserId(int userId);
 }

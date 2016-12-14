@@ -7,15 +7,15 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class FileUploadBean {
 
+
+    private String userId;
+
     private String filename;
 
     private String path;
 
     private String contentType;
 
-    private MultipartFile file;
-
-    private String userId;
 
     public String getUserId() {
         return userId;
@@ -39,14 +39,6 @@ public class FileUploadBean {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
-    }
-
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
     }
 
     public String getPath() {

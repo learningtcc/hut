@@ -1,38 +1,46 @@
 package com.hut.file.service.support;
 
+import com.hut.file.dao.FileUploadMapper;
+import com.hut.file.pojos.FileUploadBean;
+import com.hut.file.pojos.PersistentFile;
+import com.hut.file.service.FileUploadService;
+import com.hut.file.service.FileUploader;
+import com.hut.file.utils.Crypto;
+import com.hut.file.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
  * Created by Jared on 2016/12/11.
  */
-public class FileUploadService implements com.hut.file.service.FileUploadService{
+public class FileUploadServiceImpl implements FileUploadService {
 
     @Autowired
     FileUploader uploader;
+
     @Autowired
-    CloudFileMapper cloudFileMapper;
+    FileUploadMapper fileUploadMapper;
 
     Map<String,String> formats;
 
     @PostConstruct
     private void  init(){
-
         formats.put("jpg","image/jpeg");
         formats.put("png","image/png");
         formats.put("gif","image/gif");
         formats.put("jpeg","image/jpeg");
-
     }
 
     @Transactional
-    public boolean upload(UploadForm form, byte[] data) {
+    public boolean upload(FileUploadBean form, byte[] data) {
 
         try {
-            CloudFile  file =  new CloudFile();
+            PersistentFile file =  new PersistentFile();
 
             String  md5 = Crypto.createHash("md5").update(data).digestHex();
 
@@ -40,8 +48,8 @@ public class FileUploadService implements com.hut.file.service.FileUploadService
 
             String contentType=null;
 
-            if (form.getFile() != null) {
-                contentType = form.getFile().getContentType();
+            if (form != null) {
+                contentType = form.getContentType();
             }
             if (Utils.isEmpty(contentType))  {
                 contentType = form.getContentType();
@@ -60,12 +68,8 @@ public class FileUploadService implements com.hut.file.service.FileUploadService
             file.setContentType(contentType);
             file.setFilename(filename);
             file.setSize(data.length);
-            file.setAcl(form.getAcl());
-            file.setCreatedAt(new Date());
-
-            Product product  = (Product) Springs.getRequest().getAttribute(FileKeys.ACCESS_PRODUCT);
-
-            file.setAppId(product.getAppId());
+            LocalDateTime now = LocalDateTime.now();
+            file.setCreatedAt(now);
             file.setUserId(form.getUserId());
 
             saveFile(file, data);
@@ -73,13 +77,12 @@ public class FileUploadService implements com.hut.file.service.FileUploadService
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
-    private  void  saveFile(CloudFile file,byte[] data){
+    private  void  saveFile(PersistentFile file,byte[] data){
         //根据 md5 和 文件大小 来 判断是否已经存在了这个文件。
-        CloudFile maybe = this.cloudFileMapper.getFileByMd5(file.getMd5());
+        PersistentFile maybe = this.fileUploadMapper.getFileByMd5(file.getMd5());
 
         if(maybe != null && maybe.getSize() == file.getSize()){
             //只要生成虚拟文件就可以了
@@ -90,7 +93,7 @@ public class FileUploadService implements com.hut.file.service.FileUploadService
             file.setFileIndex(uploader.createIndex(file, data));
         }
 
-        this.cloudFileMapper.insertFile(file);
+        this.fileUploadMapper.insertFile(file);
     }
 
 
@@ -103,39 +106,24 @@ public class FileUploadService implements com.hut.file.service.FileUploadService
         return null;
     }
 
-    @Transactional
-    public boolean upload(UploadForm form) {
-        if(Utils.isEmpty(form.getFilename())){
-            form.setFilename(form.getFile().getOriginalFilename());
-        }
-        try {
-            return  upload(form, form.getFile().getBytes());
-        } catch (IOException e) {
-            throw new IllegalArgumentException("file serialize  fail");
-        }
+    public int getSumByUserId(int userId) {
+        return this.fileUploadMapper.sumByUserId(userId);
     }
 
-    public CloudFile getCloudFileByPath(String path) {
-        return this.cloudFileMapper.getFileByPath(path);
+    public int getTotalSizeByUserId(int userId) {
+        return this.fileUploadMapper.getTotalSizeByUserId(userId);
     }
 
-    public byte[] getData(CloudFile file) {
+
+    public PersistentFile getPersistentFileByPath(String path) {
+        return this.fileUploadMapper.getFileByPath(path);
+    }
+
+    public byte[] getData(PersistentFile file) {
         if (file != null) {
             return uploader.getFileData(file.getFileIndex());
         }
         return new byte[0];
-    }
-
-
-
-    public int sumByUserId(String userId) {
-        return this.cloudFileMapper.sumByUserId(userId);
-    }
-
-
-
-    public int getTotalSizeByUserId(String userId) {
-        return this.cloudFileMapper.getTotalSizeByUserId(userId);
     }
 
 }
