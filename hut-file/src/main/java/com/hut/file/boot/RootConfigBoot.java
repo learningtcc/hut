@@ -12,6 +12,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.sql.DataSource;
 import java.io.File;
 
@@ -36,7 +37,7 @@ public class RootConfigBoot {
             config.setLocation(new FileSystemResource(product));
         }
         else{
-            String filePath = "/system-config.properties";
+            String filePath = "/META-INF/system-config.properties";
             config.setLocation(new ClassPathResource(filePath,RootConfigBoot.class.getClassLoader()));
         }
 

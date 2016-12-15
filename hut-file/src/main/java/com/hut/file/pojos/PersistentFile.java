@@ -2,7 +2,7 @@ package com.hut.file.pojos;
 
 import com.hut.common.pojos.PojoPersistent;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by Jared on 016/12/11.
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class PersistentFile implements PojoPersistent {
 
     private int id;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private boolean trash;
 
     private String path;
@@ -35,11 +35,11 @@ public class PersistentFile implements PojoPersistent {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

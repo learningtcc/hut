@@ -13,14 +13,14 @@
     <!--<typeAliases>-->
     <!--</typeAliases>-->
 
-    <plugins>
+    <!--<plugins>
         <plugin interceptor="com.github.pagehelper.PageHelper">
             <property name="dialect" value="mysql"/>
             <property name="offsetAsPageNum" value="true"/>
             <property name="rowBoundsWithCount" value="true"/>
             <property name="pageSizeZero" value="true"/>
         </plugin>
-    </plugins>
+    </plugins>-->
 
     <!-- 这里不写也可以，MyBatis 默认会在你的mapper包下找和mapper同名的xml文件
                         如：UserMapper.java 那么它默认会找UserMapper.xml，

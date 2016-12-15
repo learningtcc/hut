@@ -9,15 +9,18 @@ import com.hut.file.utils.Crypto;
 import com.hut.file.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by Jared on 2016/12/11.
  */
+@Service
 public class FileUploadServiceImpl implements FileUploadService {
 
     @Autowired
@@ -30,6 +33,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     @PostConstruct
     private void  init(){
+        formats = new HashMap<>();
         formats.put("jpg","image/jpeg");
         formats.put("png","image/png");
         formats.put("gif","image/gif");
@@ -68,8 +72,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             file.setContentType(contentType);
             file.setFilename(filename);
             file.setSize(data.length);
-            LocalDateTime now = LocalDateTime.now();
-            file.setCreatedAt(now);
+            file.setCreatedAt(new Date());
             file.setUserId(form.getUserId());
 
             saveFile(file, data);
