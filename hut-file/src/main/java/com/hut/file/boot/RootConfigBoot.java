@@ -65,7 +65,7 @@ public class RootConfigBoot {
 
         SqlSessionFactoryBean  factory = new SqlSessionFactoryBean();
         factory.setDataSource(ds);
-        factory.setConfigLocation(new ClassPathResource("/mybatis-config.xml"));
+        factory.setConfigLocation(new ClassPathResource("/META-INF/mybatis-config.xml"));
 
         return factory;
     }

@@ -1,4 +1,4 @@
-package com.hut.web.boot;
+package com.hut.message.boot;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
