@@ -1,4 +1,4 @@
-package com.hut.file.utils;
+package com.hut.common.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

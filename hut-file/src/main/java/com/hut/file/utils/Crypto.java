@@ -1,6 +1,8 @@
 package com.hut.file.utils;
 
 
+import com.hut.common.utils.Utils;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,5 +1,7 @@
 package com.hut.file.utils;
 
+import com.hut.common.utils.Utils;
+
 import java.nio.charset.Charset;
 
 

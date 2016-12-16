@@ -6,7 +6,7 @@ import com.hut.file.pojos.PersistentFile;
 import com.hut.file.service.FileUploadService;
 import com.hut.file.service.FileUploader;
 import com.hut.file.utils.Crypto;
-import com.hut.file.utils.Utils;
+import com.hut.common.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

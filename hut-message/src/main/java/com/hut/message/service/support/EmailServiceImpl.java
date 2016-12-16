@@ -1,5 +1,7 @@
 package com.hut.message.service.support;
 
+import com.hut.message.pojos.EmailAccount;
+import com.hut.message.service.EmailSender;
 import com.hut.message.service.EmailService;
 import org.springframework.stereotype.Service;
 
@@ -8,4 +10,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EmailServiceImpl implements EmailService {
+
+    /**
+     * 发送邮件
+     */
+    public boolean sendEmail(EmailAccount emailAccount, EmailForm emailForm) {
+        EmailSender es = new EmailSender(emailAccount, logService);
+        boolean endSuccessful = es.send(emailForm);
+        return endSuccessful;
+    }
 }

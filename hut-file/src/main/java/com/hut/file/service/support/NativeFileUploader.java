@@ -2,7 +2,7 @@ package com.hut.file.service.support;
 
 import com.hut.file.pojos.PersistentFile;
 import com.hut.file.service.FileUploader;
-import com.hut.file.utils.Utils;
+import com.hut.common.utils.Utils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
