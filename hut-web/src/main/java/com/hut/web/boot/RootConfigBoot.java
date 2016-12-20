@@ -23,7 +23,6 @@ import java.io.File;
 @ComponentScan({"com.hut.file.service"})
 public class RootConfigBoot {
 
-
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
 
@@ -33,7 +32,7 @@ public class RootConfigBoot {
         if(product.exists()){
             config.setLocation(new FileSystemResource(product));
         }
-        else{
+            else{
             String filePath = "/META-INF/system-config.properties";
             config.setLocation(new ClassPathResource(filePath,RootConfigBoot.class.getClassLoader()));
         }
@@ -65,7 +64,6 @@ public class RootConfigBoot {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         return jdbcTemplate;
     }
-
 
     //用来在环境中控制数据库事物的，使用即在你的service方法上加 @Transactional 即可
     @Bean

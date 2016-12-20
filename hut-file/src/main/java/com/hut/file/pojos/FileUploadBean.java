@@ -1,12 +1,9 @@
 package com.hut.file.pojos;
 
-import org.springframework.web.multipart.MultipartFile;
-
 /**
  * Created by Jared on 2016/12/11.
  */
 public class FileUploadBean {
-
 
     private String userId;
 
@@ -15,7 +12,6 @@ public class FileUploadBean {
     private String path;
 
     private String contentType;
-
 
     public String getUserId() {
         return userId;

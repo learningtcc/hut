@@ -4,8 +4,7 @@ package com.hut.file.service;
 import com.hut.file.pojos.PersistentFile;
 
 /**
- * @author Dee·Bruce
- *
+ * @author Jared
  */
 
 public interface FileUploader {

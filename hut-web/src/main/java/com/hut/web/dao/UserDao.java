@@ -5,5 +5,4 @@ package com.hut.web.dao;
  */
 public interface UserDao {
 
-    int getCount();
 }

@@ -24,7 +24,7 @@ public class FileUploadController {
     private FileUploadService fileUploadService;
 
     @PostMapping
-    public Msg put(
+    public Msg upload(
             @RequestParam("userId")String userId,
             @RequestParam("filename")String filename,
             @RequestParam(value="contentType",defaultValue="")String contentType,
@@ -35,8 +35,7 @@ public class FileUploadController {
         fileUploadBean.setFilename(filename);
         fileUploadBean.setContentType(contentType);
 
-        // 拼接文件url
-        int index =  filename.lastIndexOf(".");
+        // 获取文件后缀名
         String suffix =StringUtils.getFilenameExtension(filename);
 
         // \\images\\2016\\03\\28\\yyyyMMddHHmmssSSSSXXXX.jpg
@@ -57,7 +56,6 @@ public class FileUploadController {
         }
         return new Msg(Msg.FILEUPLOADFAIl,"上传失败");
     }
-
 
     @GetMapping("/count")
     public Msg getCount(@RequestParam("userId")int userId){
@@ -85,9 +83,7 @@ public class FileUploadController {
         return new Msg(Msg.UNKNOW,"获取文件大小失败");
     }
 
-
     private String getPicPath() {
-
         LocalDate now = LocalDate.now();
         int year = now.getYear();
         int month = now.getMonthValue();
@@ -97,8 +93,8 @@ public class FileUploadController {
         int hour = nowtime.getHour();
         int minute = nowtime.getMinute();
         int second = nowtime.getSecond();
-
         Random random = new Random();
+
         String picPath =
                   File.separator + "file"
                 + File.separator + year
@@ -106,8 +102,6 @@ public class FileUploadController {
                 + File.separator + day
                 + File.separator + hour + minute + second
                 + random.nextInt(9999);
-
         return picPath;
     }
-
 }

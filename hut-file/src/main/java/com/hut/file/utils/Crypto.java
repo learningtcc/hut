@@ -9,23 +9,13 @@ import java.security.NoSuchAlgorithmException;
 
 
 /**
- * @author Dee·Bruce
- *
+ * @author Jared
  */
-public abstract class Crypto {
+public class Crypto {
 
-	
-	
-	public static Hash createHash(String algorithm){
-		return new Hash(algorithm);
-	}
-	
-	
-	public static  class Hash{
-		
 		private MessageDigest  digest;
 		
-		private Hash(String algorithm){
+		public Crypto(String algorithm){
 			try {
 				digest = MessageDigest.getInstance(algorithm);
 			} catch (NoSuchAlgorithmException e) {
@@ -33,11 +23,7 @@ public abstract class Crypto {
 			}
 		}
 		
-		public Hash update(String data){
-			return update(data, null);
-		}
-		
-		public Hash  update(String data,String encoding){
+		public Crypto update(String data,String encoding){
 			try {
 				encoding = Utils.isEmpty(encoding)?"utf-8":encoding;
 				digest.update(data.getBytes(encoding));
@@ -47,7 +33,7 @@ public abstract class Crypto {
 			return this;
 		}
 		
-		public Hash update(byte[] data){
+		public Crypto update(byte[] data){
 			digest.update(data);
 			return this;
 		}
@@ -73,7 +59,6 @@ public abstract class Crypto {
 		
 		public Buffer digest(){
 			byte[] result =	digest.digest();
-			
 			return new Buffer(result);
 		}
 		
@@ -88,6 +73,5 @@ public abstract class Crypto {
 		public String digestBase64(){
 			return digest().toBase64();
 		}
-	}
-	
+
 }
