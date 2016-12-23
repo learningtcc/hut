@@ -42,16 +42,12 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     @Transactional
     public boolean upload(FileUploadBean form, byte[] data) {
-
         try {
             PersistentFile file =  new PersistentFile();
-
-            String  md5 = Crypto.createHash("md5").update(data).digestHex();
-
+            Crypto crypto = new Crypto("md5");
+            String  md5 = crypto.update(data).digestHex();
             String filename =  Utils.isEmpty(form.getFilename())?md5:form.getFilename();
-
             String contentType=null;
-
             if (form != null) {
                 contentType = form.getContentType();
             }
@@ -63,10 +59,7 @@ public class FileUploadServiceImpl implements FileUploadService {
                 int lastIndexOf = form.getFilename().lastIndexOf(".");
                 contentType = formats.get(form.getFilename().substring(lastIndexOf+1));
             }
-
-
             contentType = Utils.isEmpty(contentType)? MediaType.APPLICATION_OCTET_STREAM_VALUE:contentType;
-
             file.setPath(form.getPath());
             file.setMd5(md5);
             file.setContentType(contentType);
@@ -74,7 +67,6 @@ public class FileUploadServiceImpl implements FileUploadService {
             file.setSize(data.length);
             file.setCreatedAt(new Date());
             file.setUserId(form.getUserId());
-
             saveFile(file, data);
             return true;
         } catch (Exception e) {
@@ -86,7 +78,6 @@ public class FileUploadServiceImpl implements FileUploadService {
     private  void  saveFile(PersistentFile file,byte[] data){
         //根据 md5 和 文件大小 来 判断是否已经存在了这个文件。
         PersistentFile maybe = this.fileUploadMapper.getFileByMd5(file.getMd5());
-
         if(maybe != null && maybe.getSize() == file.getSize()){
             //只要生成虚拟文件就可以了
             file.setFileIndex(maybe.getFileIndex());
@@ -95,12 +86,9 @@ public class FileUploadServiceImpl implements FileUploadService {
             //这里生成一下文件索引
             file.setFileIndex(uploader.createIndex(file, data));
         }
-
         this.fileUploadMapper.insertFile(file);
     }
 
-
-    @SuppressWarnings("unused")
     private String getFormat(String format){
         int index =0;
         if((index = format.indexOf("."))>0){
@@ -112,21 +100,17 @@ public class FileUploadServiceImpl implements FileUploadService {
     public int getSumByUserId(int userId) {
         return this.fileUploadMapper.sumByUserId(userId);
     }
-
     public int getTotalSizeByUserId(int userId) {
         return this.fileUploadMapper.getTotalSizeByUserId(userId);
     }
 
-
     public PersistentFile getPersistentFileByPath(String path) {
         return this.fileUploadMapper.getFileByPath(path);
     }
-
     public byte[] getData(PersistentFile file) {
         if (file != null) {
             return uploader.getFileData(file.getFileIndex());
         }
         return new byte[0];
     }
-
 }

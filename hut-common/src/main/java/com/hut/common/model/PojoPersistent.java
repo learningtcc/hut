@@ -1,4 +1,4 @@
-package com.hut.common.pojos;
+package com.hut.common.model;
 
 import java.util.Date;
 

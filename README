@@ -22,4 +22,13 @@ hut in the forest 是一个类似QQ空间的项目
 5、项目默认配置文件放置于hut-common项目的 META-INF/system-config.properties 项目的配置文件。
    出于项目的个性化定制不同，可以自行在当前项目的META-INF中进行覆盖。
 
-   
+6、包结构
+   controller service dao 三层架构
+   entity 普通JavaBean和数据库持久化实体
+   model 持久化实体接口、用户实体接口等
+   struct 分页等结构化实体
+   utils 工具类
+   viewdata 页面需要的展示数据实体
+   exception 自定义异常
+   constant 常量类
+   enums 枚举

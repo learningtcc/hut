@@ -1,6 +1,6 @@
 package com.hut.sso.pojos;
 
-import com.hut.common.pojos.PojoPersistent;
+import com.hut.common.model.PojoPersistent;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

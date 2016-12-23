@@ -25,7 +25,6 @@ public class RootConfigBoot {
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-
         PropertySourcesPlaceholderConfigurer config  = new PropertySourcesPlaceholderConfigurer();
         //添加一段生产环境的，配置文件代码，如果在指定位置找到配置文件则用外置配置文件，如果没有则用内置。
         File product = new File("/usr/local/servers/system-config.properties");
@@ -65,12 +64,13 @@ public class RootConfigBoot {
         return jdbcTemplate;
     }
 
-    //用来在环境中控制数据库事物的，使用即在你的service方法上加 @Transactional 即可
+    /**
+     * spring事务
+     */
     @Bean
     public DataSourceTransactionManager dataSourceTransactionManager(DataSource ds){
         DataSourceTransactionManager  tm  = new DataSourceTransactionManager();
         tm.setDataSource(ds);
         return tm;
     }
-
 }

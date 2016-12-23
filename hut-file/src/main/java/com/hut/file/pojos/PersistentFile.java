@@ -1,6 +1,6 @@
 package com.hut.file.pojos;
 
-import com.hut.common.pojos.PojoPersistent;
+import com.hut.common.model.PojoPersistent;
 
 import java.util.Date;
 

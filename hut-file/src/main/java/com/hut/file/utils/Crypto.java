@@ -1,12 +1,10 @@
 package com.hut.file.utils;
 
-
 import com.hut.common.utils.Utils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
 
 /**
  * @author Jared
@@ -22,7 +20,12 @@ public class Crypto {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		
+
+		public Crypto update(byte[] data){
+			digest.update(data);
+			return this;
+		}
+
 		public Crypto update(String data,String encoding){
 			try {
 				encoding = Utils.isEmpty(encoding)?"utf-8":encoding;
@@ -32,20 +35,12 @@ public class Crypto {
 			}
 			return this;
 		}
-		
-		public Crypto update(byte[] data){
-			digest.update(data);
-			return this;
-		}
-		
+
 		public Buffer digest(byte[] salt){
 			byte[] result =	digest.digest(salt);
 			return new Buffer(result);
 		}
-		public Buffer digest(String salt){
-			return digest(salt,"utf-8");
-		}
-		
+
 		public Buffer digest(String salt,String encoding){
 			encoding = Utils.isEmpty(encoding)?"utf-8":encoding;
 			try {
@@ -55,8 +50,7 @@ public class Crypto {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		
-		
+
 		public Buffer digest(){
 			byte[] result =	digest.digest();
 			return new Buffer(result);
@@ -73,5 +67,4 @@ public class Crypto {
 		public String digestBase64(){
 			return digest().toBase64();
 		}
-
 }

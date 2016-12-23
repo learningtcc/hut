@@ -15,10 +15,12 @@
             <artifactId>hut-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- spring-mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+        <!-- freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>

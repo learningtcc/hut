@@ -1,7 +1,7 @@
 package com.hut.message.pojos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hut.common.pojos.PojoPersistent;
+import com.hut.common.model.PojoPersistent;
 
 import java.util.Date;
 
