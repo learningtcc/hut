@@ -1,6 +1,10 @@
 package com.hut.web.boot;
 
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 /**
  * Created by Jared on 2016/12/11.
@@ -20,5 +24,9 @@ public class ApplicationBoot extends AbstractAnnotationConfigDispatcherServletIn
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    @Override protected Filter[] getServletFilters() {
+        return new Filter[] { new HiddenHttpMethodFilter(), new CharacterEncodingFilter("utf-8") };
     }
 }

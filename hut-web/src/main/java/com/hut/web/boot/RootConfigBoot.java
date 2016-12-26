@@ -20,7 +20,7 @@ import java.io.File;
  */
 @EnableTransactionManagement
 @Configuration
-@ComponentScan({"com.hut.file.service"})
+@ComponentScan({"com.hut.web.service","com.hut.web.aop"})
 public class RootConfigBoot {
 
     @Bean

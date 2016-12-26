@@ -27,12 +27,10 @@ public class RootConfigBoot {
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-
         PropertySourcesPlaceholderConfigurer config  = new PropertySourcesPlaceholderConfigurer();
 
         //添加一段生产环境的，配置文件代码，如果在指定位置找到配置文件则用外置配置文件，如果没有则用内置。
         File product = new File("/usr/local/servers/system-config.properties");
-
         if(product.exists()){
             config.setLocation(new FileSystemResource(product));
         }
@@ -40,7 +38,6 @@ public class RootConfigBoot {
             String filePath = "/META-INF/system-config.properties";
             config.setLocation(new ClassPathResource(filePath,RootConfigBoot.class.getClassLoader()));
         }
-
         return config;
     }
 
@@ -59,18 +56,21 @@ public class RootConfigBoot {
         return dataSource;
     }
 
-    //定义 MyBatis 的 SessionFactory,需要配置 mybatis-config.xml配置文件的位置信息。
+    /**
+     定义 MyBatis 的 SessionFactory,需要配置 mybatis-config.xml配置文件的位置信息。
+     */
     @Bean
     public SqlSessionFactoryBean sqlSessionFactory(DataSource ds){
 
         SqlSessionFactoryBean  factory = new SqlSessionFactoryBean();
         factory.setDataSource(ds);
         factory.setConfigLocation(new ClassPathResource("/META-INF/mybatis-config.xml"));
-
         return factory;
     }
 
-    //用来配置，MyBatis 扫包范围，从而为我们创建Dao层的实现。
+    /**
+     用来配置，MyBatis 扫包范围，从而为我们创建Dao层的实现。
+     */
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
 
@@ -82,12 +82,13 @@ public class RootConfigBoot {
         return configurer;
     }
 
-    //用来在 MyBatis 环境中控制数据库事物的，使用即在你的service 方法上加 @Transactional 即可
+    /**
+     用来在 MyBatis 环境中控制数据库事物的，使用即在你的service 方法上加 @Transactional 即可
+     */
     @Bean
     public DataSourceTransactionManager dataSourceTransactionManager(DataSource ds){
         DataSourceTransactionManager  tm  = new DataSourceTransactionManager();
         tm.setDataSource(ds);
         return tm;
     }
-
 }

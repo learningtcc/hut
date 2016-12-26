@@ -20,11 +20,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class ServletConfigBoot extends WebMvcConfigurerAdapter {
 
 
+    /**
+     * 用默认servlet进行静态资源处理
+     * @param configurer
+     */
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
-    /*
+    /**
     * 添加Spring拦截器
     * */
     @Override
