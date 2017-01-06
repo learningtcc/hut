@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        2 <beans xmlns="http://www.springframework.org/schema/beans"
+        3     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+        4     xmlns:mvc="http://www.springframework.org/schema/mvc"
+        5     xsi:schemaLocation="http://www.springframework.org/schema/beans
+        6 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        7 http://www.springframework.org/schema/context   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        8 http://www.springframework.org/schema/mvc
+        9 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        10
+        11     <!-- 启动注解，注册服务，如验证框架、全局类型转换器-->
+        12     <mvc:annotation-driven/>
+        14
+        15     <!-- 启动自动扫描 -->
+        16     <context:component-scan base-package="com.cy.ssm">
+17     <!-- 制定扫包规则 ,只扫描使用@Controller注解的JAVA类 -->
+18         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+19     </context:component-scan>
+        20
+        21
+        22     <!-- 配置视图解析器 -->
+        23     <!--
+24        prefix和suffix：查找视图页面的前缀和后缀（前缀[逻辑视图名]后缀），
+25        比如传进来的逻辑视图名为WEB-INF/jsp/hello，则该该jsp视图页面应该存放在“WEB-INF/jsp/hello.jsp”； -->
+        26     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+27         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+28         <property name="prefix" value="/"></property> <!-- 我这里的视图直接放在WebRoot下的 -->
+29         <property name="suffix" value=".jsp"></property>
+30     </bean>
+        31 </beans>

@@ -61,7 +61,6 @@ public class RootConfigBoot {
      */
     @Bean
     public SqlSessionFactoryBean sqlSessionFactory(DataSource ds){
-
         SqlSessionFactoryBean  factory = new SqlSessionFactoryBean();
         factory.setDataSource(ds);
         factory.setConfigLocation(new ClassPathResource("/META-INF/mybatis-config.xml"));
@@ -73,12 +72,11 @@ public class RootConfigBoot {
      */
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
-
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
         configurer.setBasePackage("com.hut.file.dao");
         //方法名即为BeanName
         configurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
-        
+        configurer.setBasePackage("");
         return configurer;
     }
 

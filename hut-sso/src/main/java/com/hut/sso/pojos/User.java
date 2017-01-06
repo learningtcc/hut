@@ -1,18 +1,31 @@
 package com.hut.sso.pojos;
 
 import com.hut.common.model.PojoPersistent;
+import tk.mybatis.mapper.annotation.NameStyle;
+import tk.mybatis.mapper.code.Style;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by Jared on 016/12/11.
  */
+//默认和类名相同 UserInfo：user_info  @NameStyle  @Table  加一个就可以
+//@NameStyle(Style.normal)
+@Table(name="user")
 public class User implements PojoPersistent {
 
-    private int id;
-    private LocalDateTime createdAt;
-    private boolean trash;
+    //由于基本类型,如int作为实体类字段时会有默认值0,而且无法消除,所以实体类中建议不要使用基本类型.
+
+    @Id
+    private Integer id;
+    //默认驼峰
+    @Column(name="createdAt")
+    private Date createdAt;
+    private Boolean trash;
 
     private String userName;
     private String password;
@@ -30,7 +43,7 @@ public class User implements PojoPersistent {
     private String school;
     private String[] hobby;
 
-
+    private String
 
     public int getAge(){
         LocalDate now = LocalDate.now();
@@ -48,11 +61,13 @@ public class User implements PojoPersistent {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    @Override
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    @Override
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
