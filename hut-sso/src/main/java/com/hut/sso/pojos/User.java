@@ -1,8 +1,6 @@
 package com.hut.sso.pojos;
 
 import com.hut.common.model.PojoPersistent;
-import tk.mybatis.mapper.annotation.NameStyle;
-import tk.mybatis.mapper.code.Style;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -43,7 +41,7 @@ public class User implements PojoPersistent {
     private String school;
     private String[] hobby;
 
-    private String
+    private String age;
 
     public int getAge(){
         LocalDate now = LocalDate.now();
