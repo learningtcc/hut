@@ -3,11 +3,12 @@ package com.hut.file.dao;
 import com.hut.file.pojos.PersistentFile;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import tk.mybatis.mapper.common.Mapper;
 
 /**
  * Created by Jared on 2016/12/14.
  */
-public interface FileUploadMapper {
+public interface FileUploadMapper extends Mapper{
 
     @Select("select * from cloud_files where trash=0 and md5=#{md5} limit 1")
     PersistentFile getFileByMd5(String md5);

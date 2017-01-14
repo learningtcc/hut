@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
 	<settings>
 		<!-- 开启驼峰自动映射 -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
@@ -13,21 +14,35 @@
     <!--<typeAliases>-->
     <!--</typeAliases>-->
 
-    <!--<plugins>
+    <plugins>
+        <!-- 顺序一定要是先PageHelper -->
         <plugin interceptor="com.github.pagehelper.PageHelper">
             <property name="dialect" value="mysql"/>
             <property name="offsetAsPageNum" value="true"/>
             <property name="rowBoundsWithCount" value="true"/>
             <property name="pageSizeZero" value="true"/>
         </plugin>
-    </plugins>-->
+
+		<plugin interceptor="com.github.abel533.mapper.MapperInterceptor">
+			<!--================================================-->
+			<!--可配置参数说明(一般无需修改)-->
+			<!--================================================-->
+			<!--UUID生成策略-->
+			<!--配置UUID生成策略需要使用OGNL表达式-->
+			<!--默认值32位长度:@java.util.UUID@randomUUID().toString().replace("-", "")-->
+			<!--<property name="UUID" value="@java.util.UUID@randomUUID().toString()"/>-->
+			<!--主键自增回写方法,默认值CALL IDENTITY(),适应于大多数数据库-->
+			<!--<property name="IDENTITY" value="CALL IDENTITY()"/>-->
+			<!--主键自增回写方法执行顺序,默认AFTER,可选值为(BEFORE|AFTER)-->
+			<!--<property name="ORDER" value="AFTER"/>-->
+		</plugin>
+    </plugins>
 
     <!-- 这里不写也可以，MyBatis 默认会在你的mapper包下找和mapper同名的xml文件
                         如：UserMapper.java 那么它默认会找UserMapper.xml，
                             但小编为了方便管理，就另放了一个地方 -->
     <mappers>
-        <!-- <mapper resource="/META-INF/mapper/TemplateMapper.xml"/> -->
+         <mapper resource="/META-INF/mapper/FileUploadMapper.xml"/>
     </mappers>
-
 
 </configuration>
