@@ -4,14 +4,16 @@ import com.hut.common.model.PojoPersistent;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by Jared on 016/12/11.
  */
 public class User implements PojoPersistent {
 
+
     private int id;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private boolean trash;
 
     private String userName;
@@ -22,6 +24,17 @@ public class User implements PojoPersistent {
     private String gender;
     private String identity;
     private String phonenumber;
+
+    @Override
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     private String email;
 
     private String country;
@@ -48,13 +61,6 @@ public class User implements PojoPersistent {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public boolean isTrash() {
         return trash;

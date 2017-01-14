@@ -12,6 +12,8 @@
       <module>hut-common</module>
       <module>hut-file</module>
       <module>hut-message</module>
+      <module>hut-struts</module>
+      <module>hut-servlet</module>
     </modules>
 
   <!-- Inherit defaults from Spring Boot -->
