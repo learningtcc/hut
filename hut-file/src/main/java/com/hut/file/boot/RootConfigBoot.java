@@ -66,7 +66,6 @@ public class RootConfigBoot {
         factory.setConfigLocation(new ClassPathResource("/META-INF/mybatis-config.xml"));
         return factory;
     }
-
     /**
      用来配置，MyBatis 扫包范围，从而为我们创建Dao层的实现。
      */
@@ -79,7 +78,6 @@ public class RootConfigBoot {
         configurer.setBasePackage("");
         return configurer;
     }
-
     /**
      用来在 MyBatis 环境中控制数据库事物的，使用即在你的service 方法上加 @Transactional 即可
      */

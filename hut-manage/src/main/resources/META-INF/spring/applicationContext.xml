@@ -3,13 +3,10 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="
  http://www.springframework.org/schema/beans
  http://www.springframework.org/schema/beans/spring-beans.xsd
- http://www.springframework.org/schema/aop
- http://www.springframework.org/schema/aop/spring-aop.xsd
  http://www.springframework.org/schema/tx
  http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
  http://www.springframework.org/schema/jdbc
@@ -17,7 +14,22 @@
  http://www.springframework.org/schema/context
  http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-    <context:component-scan base-package="com.hut.manage" />
+    <!-- 组件扫描 -->
+    <context:component-scan base-package="com.hut.manage"/>
+
+    <!-- 使用spring自带的占位符替换功能 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <!-- 允许JVM参数覆盖 -->
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <!-- 忽略没有找到的资源文件 -->
+        <property name="ignoreResourceNotFound" value="true"/>
+        <!-- 配置资源文件 -->
+        <property name="locations">
+            <list>
+                <value>classpath:META-INF/*.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <!--配数据源 -->
     <bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -37,6 +49,7 @@
         <!-- 如出现Too many connections, 注意修改mysql的配置文件my.ini,增大最多连接数配置项,(查看当前连接命令:show processlist) -->
     </bean>
 
+    <!-- hibernate连接工厂 -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
@@ -48,53 +61,22 @@
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
                 <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
                 <prop key="hibernate.cache.use_query_cache">true</prop>
-                <prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</prop>
+                <prop key="hibernate.cache.provider_configuration_file_resource_path">classpath:META-INF/ehcache.xml</prop>
             </props>
         </property>
-        <property name="mappingLocations">
+       <!-- <property name="mappingLocations">
             <list>
-                <value>classpath:ssh/model/User.hbm.xml</value>
+                <value>classpath:META-INF/hbm/*.hbm.xml</value>
             </list>
-        </property>
-        <!--
-        <property name="annotatedClasses">
-        <list>
-        <value>ssh.model.User</value>
-        </list>
-        </property>
-        -->
+        </property>-->
+        <property name="annotatedClasses" value="com.hut.manage.pojos"/>
     </bean>
 
-    <!-- 配置事务管理器 -->
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <!-- hibernate事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <!-- 事务的传播特性 -->
-    <tx:advice id="txadvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="add*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-            <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-            <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-            <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-        </tx:attributes>
-    </tx:advice>
-
-    <aop:config>
-        <aop:pointcut id="pcMethod" expression="execution(* ssh.service..*.*(..))" />
-        <aop:advisor pointcut-ref="pcMethod" advice-ref="txadvice" />
-    </aop:config>
-
-    <!-- 自定义aop处理 测试 -->
-    <bean id="aopTest" class="ssh.aop.AopTest"></bean>
-    <bean id="myAop" class="ssh.aop.MyAop"></bean>
-    <aop:config proxy-target-class="true">
-        <aop:aspect ref="myAop">
-            <aop:pointcut id="pcMethodTest" expression="execution(* ssh.aop.AopTest.test*(..))"/>
-            <aop:before pointcut-ref="pcMethodTest" method="before"/>
-            <aop:after pointcut-ref="pcMethodTest" method="after"/>
-        </aop:aspect>
-    </aop:config>
-
+    <!-- 使用基于注解的事务管理 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

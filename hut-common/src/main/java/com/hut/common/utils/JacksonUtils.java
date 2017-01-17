@@ -22,16 +22,14 @@ public class JacksonUtils {
     private  static  final ObjectMapper sharedMapper = new ObjectMapper();
 
     static{
-        //同意序列化不 序列化 null 值
+        //同意序列化不序列化 null 值
         sharedMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         sharedMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION	, false);
     }
 
-
-    public static <T>  T toBean(InputStream in, TypeReference<T> typeReference){
+    public static <T> T toBean(InputStream in, TypeReference<T> typeReference){
         T t ;
         try {
-
             t= sharedMapper.readValue(in, typeReference);
             return t;
         } catch (IOException e) {
@@ -39,10 +37,9 @@ public class JacksonUtils {
         }
     }
 
-    public static <T>  T toBean(InputStream  in,Class<T> type){
+    public static <T> T toBean(InputStream in,Class<T> type){
         T t ;
         try {
-
             t= sharedMapper.readValue(in, type);
             return t;
         } catch (IOException e) {
@@ -50,7 +47,7 @@ public class JacksonUtils {
         }
     }
 
-    public static <T>  T toBean(String jsonString,TypeReference<T> typeReference){
+    public static <T> T toBean(String jsonString,TypeReference<T> typeReference){
         T t ;
         try {
             t= sharedMapper.readValue(jsonString, typeReference);
@@ -60,8 +57,7 @@ public class JacksonUtils {
         }
     }
 
-
-    public static  <T>  T   toBean(String jsonString,Class<T> type){
+    public static <T> T toBean(String jsonString,Class<T> type){
         T t ;
         try {
             t= sharedMapper.readValue(jsonString, type);
@@ -71,8 +67,6 @@ public class JacksonUtils {
         }
     }
 
-
-    @SuppressWarnings("unchecked")
     public static Map<String,Object> toMap(String jsonString){
         Map<String,Object> map;
         try {
@@ -83,25 +77,21 @@ public class JacksonUtils {
         }
     }
 
+    public static void  sendJson(HttpServletResponse response, Object bean) throws IOException{
+        String  jsonstring  = toJsonString(bean);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().write(jsonstring);
+    }
 
     public static  String  toJsonString(Object bean){
         String temp;
         try {
             temp = sharedMapper.writeValueAsString(bean);
-
             return temp;
         } catch (JsonProcessingException e) {
             throw Throwables.propagate(e);
         }
     }
 
-
-    public static void  sendJson(HttpServletResponse response, Object bean) throws IOException{
-        String  jsonstring  = toJsonString(bean);
-
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setCharacterEncoding("utf-8");
-
-        response.getWriter().write(jsonstring);
-    }
 }

@@ -1,12 +1,8 @@
 package com.hut.message.service.support;
 
-import com.wdcf.email.EmailAccount;
-import com.wdcf.email.EmailForm;
-import com.wdcf.entity.EmailDetail;
-import com.wdcf.entity.Product;
-import com.wdcf.mapper.TextTemplateMapper;
-import com.wdcf.service.LogService;
-import com.wdcf.utils.Springs;
+import com.hut.message.pojos.EmailAccount;
+import com.hut.message.pojos.EmailForm;
+import com.hut.message.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

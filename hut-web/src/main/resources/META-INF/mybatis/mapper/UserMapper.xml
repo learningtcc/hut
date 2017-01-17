@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hut.web.dao">
+</mapper>
+    <!-- 配置resultMap -->
+   <!-- <resultMap type="Order" id="orderResultMap">
+        <id column="order_id" property="orderId" />
+        <association property="orderShipping" javaType="OrderShipping" column="order_id"
+                     select="queryOrderShippingByOrderId" autoMapping="true" />
+        <collection property="orderItems" javaType="List" ofType="OrderItem" column="order_id"
+                    select="queryOrderItemByOrderId" autoMapping="true" />
+    </resultMap>
+
+    &lt;!&ndash; 配置查询OrderShipping延迟加载 &ndash;&gt;
+    <select id="queryOrderShippingByOrderId" resultType="OrderShipping">
+        SELECT * FROM tb_order_shipping WHERE
+        order_id=#{orderId}
+    </select>
+
+    &lt;!&ndash; 配置查询OrderItem延迟加载 &ndash;&gt;
+    <select id="queryOrderItemByOrderId" resultType="OrderItem">
+        SELECT * FROM tb_order_item WHERE
+        order_id=#{orderId}
+    </select>
+
+    <insert id="create">
+        &lt;!&ndash; 保存订单表 &ndash;&gt;
+        INSERT INTO `tb_order` (
+        `order_id`,
+        `payment`,
+        `payment_type`,
+        `post_fee`,
+        `status`,
+        `create_time`,
+        `update_time`,
+        `payment_time`,
+        `consign_time`,
+        `end_time`,
+        `close_time`,
+        `shipping_name`,
+        `shipping_code`,
+        `user_id`,
+        `buyer_message`,
+        `buyer_nick`,
+        `buyer_rate`
+        )
+        VALUES
+        (
+        #{orderId},
+        #{payment},
+        #{paymentType},
+        #{postFee},
+        #{status},
+        #{createTime},
+        #{updateTime},
+        #{paymentTime},
+        #{consignTime},
+        #{endTime},
+        #{closeTime},
+        #{shippingName},
+        #{shippingCode},
+        #{userId},
+        #{buyerMessage},
+        #{buyerNick},
+        #{buyerRate}
+        );
+
+        &lt;!&ndash; 保存订单商品表 &ndash;&gt;
+        INSERT INTO `tb_order_item` (
+        `item_id`,
+        `order_id`,
+        `num`,
+        `title`,
+        `price`,
+        `total_fee`,
+        `pic_path`
+        )
+        VALUES
+        <foreach collection="orderItems" item="item" separator=",">
+            (
+            #{item.itemId},
+            #{orderId},
+            #{item.num},
+            #{item.title},
+            #{item.price},
+            #{item.totalFee},
+            #{item.picPath}
+            )
+        </foreach>
+        ;
+
+        &lt;!&ndash; 保存订单物流表 &ndash;&gt;
+        INSERT INTO `tb_order_shipping` (
+        `order_id`,
+        `receiver_name`,
+        `receiver_phone`,
+        `receiver_mobile`,
+        `receiver_state`,
+        `receiver_city`,
+        `receiver_district`,
+        `receiver_address`,
+        `receiver_zip`,
+        `created`,
+        `updated`
+        )
+        VALUES
+        (
+        #{orderId},
+        #{orderShipping.receiverName},
+        #{orderShipping.receiverPhone},
+        #{orderShipping.receiverMobile},
+        #{orderShipping.receiverState},
+        #{orderShipping.receiverCity},
+        #{orderShipping.receiverDistrict},
+        #{orderShipping.receiverAddress},
+        #{orderShipping.receiverZip},
+        NOW(),
+        NOW()
+        );
+
+    </insert>
+
+    &lt;!&ndash; 根据订单ID查询订单 &ndash;&gt;
+    <select id="queryOrderById" resultMap="orderResultMap">
+        SELECT * FROM tb_order WHERE order_id=#{orderId}
+    </select>
+
+    &lt;!&ndash; 根据用户名查询订单 &ndash;&gt;
+    <select id="queryOrderListByUserName" resultMap="orderResultMap">
+        SELECT * FROM tb_order WHERE
+        buyer_nick=#{userName}
+    </select>-->
+

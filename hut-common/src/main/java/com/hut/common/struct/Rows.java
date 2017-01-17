@@ -1,5 +1,6 @@
 package com.hut.common.struct;
 
+
 import com.github.pagehelper.Page;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class Rows<T> {
 	}
 
 	public static <T> Rows<T> build(Page<T> page) {
-		Rows<T> rows = new Rows<>(page.getTotal(),page.getResult());
+		Rows<T> rows = new Rows<T>(page.getTotal(),page.getResult());
 		rows.setPageMax(page.getPages());
 		rows.setPageNum(page.getPageNum());
 		return rows;

@@ -9,8 +9,8 @@ public interface PojoPersistent {
 
 
     /**id，方便扩展*/
-    int getId();
-    void setId(int id);
+    Integer getId();
+    void setId(Integer id);
 
     /**创建时间*/
     Date getCreatedAt();

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 连接池配置信息 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!-- 设置最大连接数 -->
+		<property name="maxTotal" value="${redis.maxTotal}" />
+	</bean>
+
+	<!-- 定义集群连接池 -->
+	<bean class="redis.clients.jedis.ShardedJedisPool">
+		<!-- 配置连接池配置信息 -->
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="1">
+			<!-- 定义集群信息 -->
+			<list>
+				<bean class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg index="0" value="${redis.host1}" />
+					<!-- 可以通过配置type属性指定数据的类型，以区分多个构造器 -->
+					<constructor-arg index="1" value="${redis.port1}" />
+				</bean>
+				<!-- <bean class="redis.clients.jedis.JedisShardInfo"> -->
+				<!-- <constructor-arg index="0" value="${redis.host2}" /> -->
+				<!-- <constructor-arg index="1" value="${redis.port2}" /> -->
+				<!-- </bean> -->
+			</list>
+		</constructor-arg>
+	</bean>
+</beans>
