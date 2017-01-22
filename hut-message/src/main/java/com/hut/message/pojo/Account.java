@@ -1,4 +1,4 @@
-package com.hut.message.pojos;
+package com.hut.message.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hut.common.model.PojoPersistent;
@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Account implements PojoPersistent{
 
-	private int id;
+	private Integer id;
 	private Date createdAt;
 	private boolean trash;
 	
@@ -28,11 +28,11 @@ public class Account implements PojoPersistent{
 	
 	private String addition;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -11,19 +11,24 @@ public class Msg<T> {
     /**未知异常*/
     public static final int  UNKNOW = -1;
 
+    /**参数不合法*/
+    public static final int  PARAMERROR = -2;
+
+    /**权限不足*/
+    public static final int  UNAUTH = 1001;
+
     /**文件大小超出限制*/
-    public static final int FILESIZE_LIMITED=2002;
+    public static final int FILESIZE_LIMITED=2001;
 
     /**文件上传成功*/
     public static final int FILEUPLOADSUCCESSF = 2000;
 
     /**文件上传失败*/
-    public static final int FILEUPLOADFAIl = 2001;
+    public static final int FILEUPLOADFAIl = 2002;
 
     private int code;
     private String message;
     private T entity;
-
 
     public Msg(int code, String message) {
         this.code = code;
@@ -58,6 +63,11 @@ public class Msg<T> {
 
     public void setEntity(T entity) {
         this.entity = entity;
+    }
+
+
+    public static Msg build(int code, String message){
+        return new Msg(code,message);
     }
 
 }

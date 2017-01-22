@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public interface PojoPersistent {
 
-
     /**id，方便扩展*/
     Integer getId();
     void setId(Integer id);

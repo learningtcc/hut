@@ -26,6 +26,9 @@ public class UserAction extends BaseAction<User> {
         String userName = model.getUserName();
         String password = model.getPassword();
         User u = userService.getUserByUserNameAndPassword(userName,password);
+    }
+
+    public void register(){
 
     }
 

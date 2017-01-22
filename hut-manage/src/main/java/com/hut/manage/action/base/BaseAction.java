@@ -1,9 +1,7 @@
 package com.hut.manage.action.base;
 
-import com.hut.common.struct.PageBean;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import org.hibernate.criterion.DetachedCriteria;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -17,25 +15,24 @@ import java.lang.reflect.Type;
  */
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 
-	public static final String HOME = "home";
-	public static final String LIST = "list";
+//	public static final String HOME = "home";
+//	public static final String LIST = "list";
 
-	public PageBean pageBean = new PageBean();
+//	public PageBean pageBean = new PageBean();
 
-	public void setRows(int rows) {
-		pageBean.setPageSize(rows);
-	}
+//	public void setRows(int rows) {
+//		pageBean.setPageSize(rows);
+//	}
 
-	public void setPage(int page) {
-		pageBean.setCurrentPage(page);
-	}
+//	public void setPage(int page) {
+//		pageBean.setCurrentPage(page);
+//	}
 
 	// 创建一个离线条件查询对象，可以封装过滤条件: DetachedCriteria.forClass(Staff.class);
-	DetachedCriteria detachedCriteria = null;
+//	DetachedCriteria detachedCriteria = null;
 
 	// 定义模型对象
 	protected T model;
-
 	// 返回模型对象
 	public T getModel() {
 		return model;
@@ -46,11 +43,9 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	 */
 	public BaseAction() {
 
-		// 获得父类的类型（BaseAction） (ParameterizedType) this.getClass().getGenericSuperclass()
+		// 获得父类的类型（BaseAction）
 		ParameterizedType genericSuperclass = null;
-		
 		Type clazz = this.getClass().getGenericSuperclass();
-
 		if(clazz instanceof ParameterizedType){
 			genericSuperclass = (ParameterizedType) clazz;
 		}else{
@@ -64,8 +59,8 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 		Class<T> entityClass = (Class<T>) actualTypeArguments[0];
 
         // 初始化离线条件查询对象
-		detachedCriteria = DetachedCriteria.forClass(entityClass);
-		pageBean.setDetachedCriteria(detachedCriteria);
+//		detachedCriteria = DetachedCriteria.forClass(entityClass);
+//		pageBean.setDetachedCriteria(detachedCriteria);
 
 		// 通过反射创建model对象
 		try {
@@ -76,5 +71,4 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 			e.printStackTrace();
 		}
 	}
-
 }

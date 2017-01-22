@@ -15,7 +15,6 @@
             <artifactId>hut-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
         <!-- RabbitMQ -->
         <dependency>
             <groupId>com.rabbitmq</groupId>
@@ -49,17 +48,16 @@
             <artifactId>mybatis</artifactId>
             <version>3.3.1</version>
         </dependency>
-        <!--分页插件-->
         <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>5.0.0</version>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.4</version>
         </dependency>
-        <!--通用Mapper-->
+        <!-- Apache fileupload-->
         <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper</artifactId>
-            <version>3.3.9</version>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.2</version>
         </dependency>
     </dependencies>
 

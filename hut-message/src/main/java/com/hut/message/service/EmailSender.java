@@ -2,8 +2,8 @@ package com.hut.message.service;
 
 import com.google.common.base.Throwables;
 import com.hut.common.utils.Utils;
-import com.hut.message.pojos.EmailAccount;
-import com.hut.message.pojos.EmailForm;
+import com.hut.message.pojo.EmailAccount;
+import com.hut.message.pojo.EmailForm;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.util.StringUtils;

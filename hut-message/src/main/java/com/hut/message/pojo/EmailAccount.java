@@ -1,4 +1,4 @@
-package com.hut.message.pojos;
+package com.hut.message.pojo;
 
 /**
  * Created by Jared on 2016/12/16.

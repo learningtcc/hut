@@ -3,7 +3,6 @@ package com.hut.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by Jared on 2016/12/10.
@@ -13,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class PageController {
 
-    @GetMapping
+    @GetMapping("/index")
     public String index(){
         return "index";
+    }
+
+    @GetMapping("/demo")
+    public String demo(){
+        return "demo";
     }
 }

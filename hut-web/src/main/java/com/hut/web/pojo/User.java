@@ -1,8 +1,12 @@
 package com.hut.web.pojo;
 
 import com.hut.common.model.PojoPersistent;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -11,7 +15,6 @@ import java.util.Date;
  */
 
 /*
-
     1.表名默认使用类名,驼峰转下划线(只对大写字母进行处理),如UserInfo默认对应的表名为user_info。
     2.表名可以使用@Table(name = "tableName")进行指定,对不符合第一条默认规则的可以通过这种方式指定表名.
     3.字段默认和@Column一样,都会作为表字段,表字段默认为Java对象的Field名字驼峰转下划线形式.
@@ -22,12 +25,10 @@ import java.util.Date;
     8.实体类可以继承使用,可以参考测试代码中的tk.mybatis.mapper.model.UserLogin2类.
     9.由于基本类型,如int作为实体类字段时会有默认值0,而且无法消除,所以实体类中建议不要使用基本类型.
     10.@NameStyle注解，用来配置对象名/字段和表名/字段之间的转换方式，该注解优先于全局配置style，可选值：
-
-    · normal:使用实体类名/属性名作为表名/字段名
-    · camelhump:这是默认值，驼峰转换为下划线形式
-    · uppercase:转换为大写
-    · lowercase:转换为小写
-
+        · normal:使用实体类名/属性名作为表名/字段名
+        · camelhump:这是默认值，驼峰转换为下划线形式
+        · uppercase:转换为大写
+        · lowercase:转换为小写
 * */
 
 //默认和类名相同 UserInfo：user_info  @NameStyle  @Table  加一个就可以
@@ -36,6 +37,7 @@ import java.util.Date;
 @Entity
 public class User implements PojoPersistent {
 
+
     //由于基本类型,如int作为实体类字段时会有默认值0,而且无法消除,所以实体类中建议不要使用基本类型.
     @Id
     @GeneratedValue(generator = "JDBC")
@@ -43,32 +45,52 @@ public class User implements PojoPersistent {
     private Date createdAt;
     private boolean trash;
 
+    @Size(message = "用户名必须是8~12位",min = 8,max = 12)
+    @NotNull
     private String userName;
+
+    @Size(message = "密码必须是8~12位",min = 8,max = 12)
+    @NotNull
     private String password;
+
+    private String profile;
+
     private String photoUrl;
+
     private String name;
-    private Date birthDay;
+
+    private Date birthday;
+
     private String gender;
+
     private String identity;
-    private String phonenumber;
+
+    @Pattern(regexp ="^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}$" ,message = "手机号码不合规")
+    private Integer phone;
+
+    @Email(message = "邮箱地址不合规")
     private String email;
 
-    private String country;
-    private String province;
-    private String city;
-    private String school;
-    private String[] hobby;
+    private String zodiac;
+
+    private String constellation;
 
     @Transient
-    private String age;
-
     public int getAge(){
         LocalDate now = LocalDate.now();
         int nowYear = now.getYear();
-        int birthYeah = this.getBirthDay().getYear();
+        int birthYeah = this.getBirthday().getYear();
         int age = nowYear-birthYeah;
         return age;
     }
+
+    private String country;
+
+    private String province;
+
+    private String city;
+
+    private String school;
 
     @Override
     public Integer getId() {
@@ -90,10 +112,12 @@ public class User implements PojoPersistent {
         this.createdAt = createdAt;
     }
 
+    @Override
     public boolean isTrash() {
         return trash;
     }
 
+    @Override
     public void setTrash(boolean trash) {
         this.trash = trash;
     }
@@ -114,6 +138,14 @@ public class User implements PojoPersistent {
         this.password = password;
     }
 
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
     public String getPhotoUrl() {
         return photoUrl;
     }
@@ -130,12 +162,12 @@ public class User implements PojoPersistent {
         this.name = name;
     }
 
-    public Date getBirthDay() {
-        return birthDay;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getGender() {
@@ -154,12 +186,12 @@ public class User implements PojoPersistent {
         this.identity = identity;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public int getPhone() {
+        return phone;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -168,6 +200,22 @@ public class User implements PojoPersistent {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getZodiac() {
+        return zodiac;
+    }
+
+    public void setZodiac(String zodiac) {
+        this.zodiac = zodiac;
+    }
+
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
     }
 
     public String getCountry() {
@@ -200,13 +248,5 @@ public class User implements PojoPersistent {
 
     public void setSchool(String school) {
         this.school = school;
-    }
-
-    public String[] getHobby() {
-        return hobby;
-    }
-
-    public void setHobby(String[] hobby) {
-        this.hobby = hobby;
     }
 }

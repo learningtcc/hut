@@ -1,7 +1,7 @@
 package com.hut.message.service.support;
 
-import com.hut.message.pojos.EmailAccount;
-import com.hut.message.pojos.EmailForm;
+import com.hut.message.pojo.EmailAccount;
+import com.hut.message.pojo.EmailForm;
 import com.hut.message.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

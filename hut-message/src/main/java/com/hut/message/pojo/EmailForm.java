@@ -1,4 +1,4 @@
-package com.hut.message.pojos;
+package com.hut.message.pojo;
 
 import java.util.List;
 

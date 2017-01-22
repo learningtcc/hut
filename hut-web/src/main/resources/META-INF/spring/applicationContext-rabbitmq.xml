@@ -1,24 +1,24 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:rabbit="http://www.springframework.org/schema/rabbit"
        xsi:schemaLocation="http://www.springframework.org/schema/rabbit
-	http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd
+	http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
 	http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
-
-	<!-- 定义RabbitMQ的连接工厂 -->
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--
+	&lt;!&ndash; 定义RabbitMQ的连接工厂 &ndash;&gt;
 	<rabbit:connection-factory id="connectionFactory" host="${rabbit.host}"
 		port="${rabbit.port}" username="${rabbit.username}" password="${rabbit.password}" virtual-host="${rabbit.vhost}" />
 
-	<!-- MQ的管理，包括队列、交换器等 -->
+	&lt;!&ndash; MQ的管理，包括队列、交换器等 &ndash;&gt;
 	<rabbit:admin connection-factory="connectionFactory" />
 
-	<!-- 定义队列，自动声明 -->
+	&lt;!&ndash; 定义队列，自动声明 &ndash;&gt;
 	<rabbit:queue name="WEB_TAOTAO_QUEUE_ITEM" auto-declare="true" durable="true" />
 
-	<!-- 队列监听 -->
+	&lt;!&ndash; 队列监听 &ndash;&gt;
 	<rabbit:listener-container connection-factory="connectionFactory">
 		<rabbit:listener ref="consumer" method="listen" queue-names="WEB_TAOTAO_QUEUE_ITEM" />
 	</rabbit:listener-container>
 
-	<bean id="consumer" class="com.hut.web.rabbit.Consumer" />
+	<bean id="consumer" class="com.hut.web.rabbit.Consumer" />-->
 </beans>

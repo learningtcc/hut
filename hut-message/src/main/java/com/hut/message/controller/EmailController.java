@@ -1,9 +1,9 @@
 package com.hut.message.controller;
 
 import com.hut.common.messages.Msg;
-import com.hut.message.pojos.Account;
-import com.hut.message.pojos.EmailAccount;
-import com.hut.message.pojos.EmailForm;
+import com.hut.message.pojo.Account;
+import com.hut.message.pojo.EmailAccount;
+import com.hut.message.pojo.EmailForm;
 import com.hut.message.service.EmailService;
 import com.hut.message.utils.FreeMarkerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ public class EmailController {
 
     @Autowired
     private EmailService emailService;
+
     /**
      * 发送 普通	邮件
      */

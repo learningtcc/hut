@@ -1,7 +1,7 @@
 package com.hut.message.service;
 
-import com.hut.message.pojos.EmailAccount;
-import com.hut.message.pojos.EmailForm;
+import com.hut.message.pojo.EmailAccount;
+import com.hut.message.pojo.EmailForm;
 
 /**
  * Created by Jared on 2016/12/15.

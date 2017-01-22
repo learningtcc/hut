@@ -1,6 +1,7 @@
 package com.hut.message.service.support;
 
-import com.hut.message.pojos.EmailAccount;
+import com.hut.message.pojo.EmailAccount;
+import com.hut.message.pojo.EmailForm;
 import com.hut.message.service.EmailSender;
 import com.hut.message.service.EmailService;
 import org.springframework.stereotype.Service;

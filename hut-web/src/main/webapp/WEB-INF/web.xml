@@ -60,13 +60,7 @@
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
         <!-- 伪静态 ，SEO优化-->
-        <!-- 所有以html结尾的请求都进入springMVC -->
+        <!-- 所有进入springMVC的请求必须以.html结尾的-->
         <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>dispatcherServlet</servlet-name>
-        <!-- 伪静态 ，SEO优化-->
-        <!-- 所有以service开头的请求都进入springMVC -->
-        <url-pattern>/service/*</url-pattern>
     </servlet-mapping>
 </web-app>
