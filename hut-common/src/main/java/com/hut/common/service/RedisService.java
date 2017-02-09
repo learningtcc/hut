@@ -27,7 +27,6 @@ public class RedisService {
         try {
             // 从连接池中获取到jedis分片对象
             shardedJedis = shardedJedisPool.getResource();
-
             return shardedJedis.set(key, value);
         } catch (Exception e) {
             e.printStackTrace();

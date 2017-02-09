@@ -11,11 +11,11 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface UserMapper {
 
-    @Select("select * form user where userName =#{userName} and password=#{md5password}")
+    @Select("select * from user where userName =#{userName} and password=#{md5password}")
     User selectByUserNameAndPassword(@Param("userName") String userName,@Param("md5password") String md5password);
 
-    @Insert("INSERT INTO `user` ( `createdAt`,`userName`, `password`, `name`, `gender`, `phone`, `email`, `birthday`, `zodiac`, `constellation`, `country`, `province`, `city`, `school`)" +
-            " VALUES ( #{createdAt}, #{userName}, #{password}, #{name}, #{gender}, #{phone}, #{email}, #{birthday}, #{zodiac}, #{constellation}, #{country}, #{province}, #{city}, #{school})")
+    @Insert("INSERT INTO `user` ( `createdAt`,`userName`, `password`, `phone`, `email` )" +
+            " VALUES ( #{createdAt}, #{userName}, #{password}, #{phone}, #{email})")
     @Options(useGeneratedKeys = true,keyProperty = "id")
     void save(User user);
 

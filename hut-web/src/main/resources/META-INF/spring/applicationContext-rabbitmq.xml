@@ -4,21 +4,21 @@
 	http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
 	http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
-<!--
-	&lt;!&ndash; 定义RabbitMQ的连接工厂 &ndash;&gt;
+
+	<!-- 定义RabbitMQ的连接工厂 -->
 	<rabbit:connection-factory id="connectionFactory" host="${rabbit.host}"
 		port="${rabbit.port}" username="${rabbit.username}" password="${rabbit.password}" virtual-host="${rabbit.vhost}" />
 
-	&lt;!&ndash; MQ的管理，包括队列、交换器等 &ndash;&gt;
+	<!-- MQ的管理，包括队列、交换器等 -->
 	<rabbit:admin connection-factory="connectionFactory" />
 
-	&lt;!&ndash; 定义队列，自动声明 &ndash;&gt;
+	<!-- 定义队列，自动声明 -->
 	<rabbit:queue name="WEB_TAOTAO_QUEUE_ITEM" auto-declare="true" durable="true" />
 
-	&lt;!&ndash; 队列监听 &ndash;&gt;
+	<!-- 队列监听 -->
 	<rabbit:listener-container connection-factory="connectionFactory">
 		<rabbit:listener ref="consumer" method="listen" queue-names="WEB_TAOTAO_QUEUE_ITEM" />
 	</rabbit:listener-container>
 
-	<bean id="consumer" class="com.hut.web.rabbit.Consumer" />-->
+	<bean id="consumer" class="com.hut.web.rabbit.Consumer" />
 </beans>

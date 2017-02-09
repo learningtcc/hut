@@ -14,9 +14,9 @@
 
 <div>
     <div>登录</div>
-    <form action="/user/login" method="post">
-        <input type="text" value="userName"/>
-        <input type="password" value="password"/>
+    <form action="/user/login.html" method="get">
+        <input type="text" name="userName"/>
+        <input type="password" name="password"/>
         <input type="submit">提交</input>
     </form>
 </div>

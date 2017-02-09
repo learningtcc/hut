@@ -4,14 +4,21 @@ import com.hut.common.messages.Msg;
 import com.hut.common.messages.MsgException;
 import com.hut.common.service.RedisService;
 import com.hut.common.utils.JacksonUtils;
+import com.hut.common.utils.Utils;
 import com.hut.web.dao.UserMapper;
 import com.hut.web.pojo.User;
 import com.hut.web.service.UserService;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.Date;
+
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+import static sun.java2d.cmm.ColorTransform.In;
 
 /**
  * Created by Jared on 2017/1/17.
@@ -23,6 +30,9 @@ public class UserServiceImpl implements UserService{
     private UserMapper userMapper;
 
     @Autowired
+    private ConnectionFactory connectionFactory;
+
+    @Autowired
     private RedisService redisService;
 
     @Override
@@ -30,12 +40,13 @@ public class UserServiceImpl implements UserService{
 
         try {
             byte[] digest = MessageDigest.getInstance("md5").digest(password.getBytes("utf8"));
-            String md5password = new String(digest, "utf8");
+            String md5password = Utils.toMd5String(digest);
 
             User u = userMapper.selectByUserNameAndPassword(userName,md5password);
             if (u!=null) {
-                /*存到redis里*/
-                /*redisService.set("user", JacksonUtils.toJsonString(u),60*60);*/
+                /*从redis里取*/
+                String user = redisService.get("user");
+                System.out.println(user);
                 return u;
             }
             throw new MsgException(Msg.UNKNOW,"登录失败");
@@ -49,12 +60,18 @@ public class UserServiceImpl implements UserService{
     public User register(User user) {
         try {
             byte[] digest = MessageDigest.getInstance("md5").digest(user.getPassword().getBytes("utf8"));
-            String md5password = new String(digest, "utf8");
+            String md5password = Utils.toMd5String(digest);
             user.setPassword(md5password);
             user.setCreatedAt(new Date());
-
             userMapper.save(user);
+
             //rabbitTemplate
+            Connection connection = connectionFactory.newConnection();
+            connection.
+            /*存到redis里*/
+            for(int i=0;i<4;i++){
+            redisService.set("ab"+i, JacksonUtils.toJsonString(user),60*60);
+            }
             return user;
         } catch (Exception e) {
             e.printStackTrace();

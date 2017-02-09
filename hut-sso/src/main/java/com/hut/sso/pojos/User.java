@@ -1,3 +1,4 @@
+/*
 package com.hut.sso.pojos;
 
 import com.hut.common.model.PojoPersistent;
@@ -9,9 +10,11 @@ import java.time.LocalDate;
 
 import java.util.Date;
 
+*/
 /**
  * Created by Jared on 016/12/11.
- */
+ *//*
+
 //默认和类名相同 UserInfo：user_info  @NameStyle  @Table  加一个就可以
 //@NameStyle(Style.normal)
 @Table(name="user")
@@ -205,3 +208,4 @@ public class User implements PojoPersistent {
         this.hobby = hobby;
     }
 }
+*/

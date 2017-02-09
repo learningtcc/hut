@@ -10,7 +10,6 @@ public class Consumer {
 
         private static final ObjectMapper MAPPER = new ObjectMapper();
 
-
         // 具体执行业务的方法
         public void listen(String foo) {
             // 解析消息

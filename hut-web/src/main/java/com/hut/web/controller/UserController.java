@@ -27,24 +27,23 @@ public class UserController {
 
     @GetMapping("/login")
     @ResponseBody
-    public User login(@Valid User user, BindingResult result, HttpServletRequest rq){
-        if (!userNameIsExist(user.getUserName()))
-            throw new MsgException(Msg.PARAMERROR,"用户名已存在");
-        if (result.hasErrors())
+    public void login(@Valid User user, BindingResult result, HttpServletRequest rq){
+        if (result.hasFieldErrors("userName"))
             throw new MsgException(Msg.PARAMERROR,result.getFieldError().toString());
         User u = userService.login(user.getUserName(),user.getPassword());
         rq.getSession().setAttribute("User", user);
-        return u;
+        System.out.println(u.toString());
     }
 
     @PostMapping("/register")
     @ResponseBody
-    public User register(@Valid User user,BindingResult result,HttpServletRequest rq){
+    public void register(@Valid User user,BindingResult result,HttpServletRequest rq){
         if (result.hasErrors())
             throw new MsgException(Msg.PARAMERROR,result.getFieldError().toString());
         User u = userService.register(user);
         rq.getSession().setAttribute("User", user);
-        return u;
+
+        System.out.println(u.toString());
     }
 
     private boolean userNameIsExist(String userName){

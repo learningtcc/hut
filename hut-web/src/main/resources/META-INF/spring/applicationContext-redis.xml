@@ -5,25 +5,25 @@
 	<!-- 连接池配置信息 -->
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<!-- 设置最大连接数 -->
-		<property name="maxTotal" value="${redis.maxTotal}" />
+		<property name="maxTotal" value="${redis.maxTotal}0" />
 	</bean>
 
-	<!-- 定义集群连接池 -->
-	<bean class="redis.clients.jedis.ShardedJedisPool">
-		<!-- 配置连接池配置信息 -->
+	<!-- 定义集群 -->
+	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+		<!-- 连接池配置信息 -->
 		<constructor-arg index="0" ref="jedisPoolConfig" />
 		<constructor-arg index="1">
-			<!-- 定义集群信息 -->
+			<!-- 集群信息 -->
 			<list>
 				<bean class="redis.clients.jedis.JedisShardInfo">
-					<constructor-arg index="0" value="${redis.host1}" />
+					<constructor-arg index="0" value="${redis.host2}" />
+					<constructor-arg index="1" value="${redis.port2}" />
+				</bean>
+				<bean class="redis.clients.jedis.JedisShardInfo">
 					<!-- 可以通过配置type属性指定数据的类型，以区分多个构造器 -->
+					<constructor-arg index="0" value="${redis.host1}" />
 					<constructor-arg index="1" value="${redis.port1}" />
 				</bean>
-				<!-- <bean class="redis.clients.jedis.JedisShardInfo"> -->
-				<!-- <constructor-arg index="0" value="${redis.host2}" /> -->
-				<!-- <constructor-arg index="1" value="${redis.port2}" /> -->
-				<!-- </bean> -->
 			</list>
 		</constructor-arg>
 	</bean>

@@ -1,5 +1,6 @@
 package com.hut.web.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hut.common.model.PojoPersistent;
 import org.hibernate.validator.constraints.Email;
 
@@ -53,8 +54,6 @@ public class User implements PojoPersistent {
     @NotNull
     private String password;
 
-    private String profile;
-
     private String photoUrl;
 
     private String name;
@@ -66,16 +65,14 @@ public class User implements PojoPersistent {
     private String identity;
 
     @Pattern(regexp ="^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}$" ,message = "手机号码不合规")
-    private Integer phone;
+    private String phone;
 
     @Email(message = "邮箱地址不合规")
     private String email;
 
-    private String zodiac;
-
-    private String constellation;
 
     @Transient
+    @JsonIgnore
     public int getAge(){
         LocalDate now = LocalDate.now();
         int nowYear = now.getYear();
@@ -84,13 +81,6 @@ public class User implements PojoPersistent {
         return age;
     }
 
-    private String country;
-
-    private String province;
-
-    private String city;
-
-    private String school;
 
     @Override
     public Integer getId() {
@@ -138,14 +128,6 @@ public class User implements PojoPersistent {
         this.password = password;
     }
 
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
-    }
-
     public String getPhotoUrl() {
         return photoUrl;
     }
@@ -186,11 +168,11 @@ public class User implements PojoPersistent {
         this.identity = identity;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -202,51 +184,22 @@ public class User implements PojoPersistent {
         this.email = email;
     }
 
-    public String getZodiac() {
-        return zodiac;
-    }
 
-    public void setZodiac(String zodiac) {
-        this.zodiac = zodiac;
-    }
-
-    public String getConstellation() {
-        return constellation;
-    }
-
-    public void setConstellation(String constellation) {
-        this.constellation = constellation;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", trash=" + trash +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", name='" + name + '\'' +
+                ", birthday=" + birthday +
+                ", gender='" + gender + '\'' +
+                ", identity='" + identity + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
