@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+    <package name="manage" namespace="/hutManage" extends="struts-default,json-default">
+
+        <interceptors>
+            <interceptor name="authorization" class="com.hut.manage.interceptors.AuthorizationInterceptor"/>
+        </interceptors>
+
+        <global-results>
+            <result type="json">
+                <param name="root">json</param>
+                <param name="contentType">text/html</param>
+            </result>
+
+            <result name="success">/WEB-INF/views/index.jsp</result>
+        </global-results>
+
+        <!-- 用户管理Action -->
+        <action name="userAction_*" class="userAction" method="{1}">
+            <result name="index">/WEB-INF/views/index.jsp</result>
+            <result name="login">/WEB-INF/views/demo.jsp</result>
+        </action>
+    </package>
+</struts>

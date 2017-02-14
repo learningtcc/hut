@@ -3,6 +3,7 @@ package com.hut.web.service.support;
 import com.hut.common.messages.Msg;
 import com.hut.common.messages.MsgException;
 import com.hut.common.service.RedisService;
+import com.hut.common.utils.DigestUtils;
 import com.hut.common.utils.JacksonUtils;
 import com.hut.common.utils.Utils;
 import com.hut.web.dao.UserMapper;
@@ -39,8 +40,7 @@ public class UserServiceImpl implements UserService{
     public User login(String userName, String password) {
 
         try {
-            byte[] digest = MessageDigest.getInstance("md5").digest(password.getBytes("utf8"));
-            String md5password = Utils.toMd5String(digest);
+            String md5password = DigestUtils.StringToHexMd5(password);
 
             User u = userMapper.selectByUserNameAndPassword(userName,md5password);
             if (u!=null) {
@@ -59,15 +59,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public User register(User user) {
         try {
-            byte[] digest = MessageDigest.getInstance("md5").digest(user.getPassword().getBytes("utf8"));
-            String md5password = Utils.toMd5String(digest);
+            String md5password = DigestUtils.StringToHexMd5(user.getPassword());
             user.setPassword(md5password);
             user.setCreatedAt(new Date());
             userMapper.save(user);
 
             //rabbitTemplate
-            Connection connection = connectionFactory.newConnection();
-            connection.
+            /*Connection connection = connectionFactory.newConnection();
+            connection.*/
+
             /*存到redis里*/
             for(int i=0;i<4;i++){
             redisService.set("ab"+i, JacksonUtils.toJsonString(user),60*60);
