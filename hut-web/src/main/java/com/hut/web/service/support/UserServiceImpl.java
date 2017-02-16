@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
+    //@Autowired
     private ConnectionFactory connectionFactory;
 
     @Autowired

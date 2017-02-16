@@ -108,5 +108,9 @@
             <artifactId>spring-data-redis</artifactId>
             <version>1.6.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>
     </dependencies>
 </project>
