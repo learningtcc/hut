@@ -5,21 +5,15 @@ import com.hut.common.messages.MsgException;
 import com.hut.common.service.RedisService;
 import com.hut.common.utils.DigestUtils;
 import com.hut.common.utils.JacksonUtils;
-import com.hut.common.utils.Utils;
 import com.hut.web.dao.UserMapper;
 import com.hut.web.pojo.User;
 import com.hut.web.service.UserService;
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.MessageDigest;
-import java.util.Base64;
 import java.util.Date;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
-import static sun.java2d.cmm.ColorTransform.In;
 
 /**
  * Created by Jared on 2017/1/17.
@@ -35,6 +29,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private RedisService redisService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public User login(String userName, String password) {
@@ -64,14 +61,12 @@ public class UserServiceImpl implements UserService{
             user.setCreatedAt(new Date());
             userMapper.save(user);
 
-            //rabbitTemplate
-            /*Connection connection = connectionFactory.newConnection();
-            connection.*/
+            //发送消息
+            this.rabbitTemplate.sendAndReceive()
 
             /*存到redis里*/
-            for(int i=0;i<4;i++){
-            redisService.set("ab"+i, JacksonUtils.toJsonString(user),60*60);
-            }
+            //redisService.set("rabbitmqUser", JacksonUtils.toJsonString(user),60*60);
+
             return user;
         } catch (Exception e) {
             e.printStackTrace();
