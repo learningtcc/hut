@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService{
             userMapper.save(user);
 
             //发送消息
-            this.rabbitTemplate.sendAndReceive()
+            //this.rabbitTemplate.sendAndReceive("sasa","ss");
 
             /*存到redis里*/
             //redisService.set("rabbitmqUser", JacksonUtils.toJsonString(user),60*60);

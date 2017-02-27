@@ -20,7 +20,7 @@ public class Consumer {
                 long itemId = jsonNode.get("itemId").asLong();
 
                 // 删除缓存
-                this.itemCacheService.deleteItemCacheByItemId(itemId);
+                //this.itemCacheService.deleteItemCacheByItemId(itemId);
 
             } catch (Exception e) {
                 e.printStackTrace();

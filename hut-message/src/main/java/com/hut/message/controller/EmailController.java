@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Created by Jared on 2016/12/15.
  */
-@Controller
+@RestController
 @RequestMapping("/email")
 public class EmailController {
 
@@ -29,7 +29,6 @@ public class EmailController {
      * 发送 普通	邮件
      */
     @PostMapping(value="ordinary")
-    @ResponseBody
     public Msg sendEmail(@RequestParam("subject")String subject,
                          @RequestParam("address")String[] address,
                          @RequestBody String content,
@@ -75,7 +74,6 @@ public class EmailController {
      * 发送 模板	邮件
      */
     @RequestMapping(value="template",method=RequestMethod.POST)
-    @ResponseBody
     public Msg sendTemplateEmail(@RequestParam("subject")String subject,
                                  @RequestParam("address")String[] address,
                                  @RequestParam("varName")String varName,
